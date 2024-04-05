@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp">
+  <head>
+    <meta charset="utf-8" />
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="style.css " />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body ng-controller="weatherController">
+    <h1>Weather Forecast</h1>
+    <div class="container">
+      <div class="weather-input">
+        <h3>Enter City</h3>
+        <input
+          class="city-input"
+          type="text"
+          placeholder="E.g. Lagos"
+          ng-model="city"
+        />
+        <button class="search-btn" ng-click="searchCity()">Search</button>
+        <div class="seperator"></div>
+        <button class="location-btn" ng-click="useLocation()">
+          Use Present Location
+        </button>
+      </div>
+      <div ng-hide="currentWeather == null" class="weather-data">
+        <div class="current-weather">
+          <div class="details">
+            <h2>
+              {{ currentWeather.city }} ({{ currentWeather.date | date:
+              'mediumDate' }})
+            </h2>
+
+            <h4>Temp: {{ currentWeather.temperature }}°C</h4>
+            <h4>Wind: {{ currentWeather.windSpeed }} M/S</h4>
+            <h4>Humidity: {{ currentWeather.humidity }}%</h4>
+          </div>
+
+          <div class="icon">
+            <img ng-src="{{ currentWeather.iconUrl }}" alt="weather icon" />
+            <h4>{{ currentWeather.weatherDescription }}</h4>
+          </div>
+        </div>
+
+        <div class="days-forecast">
+          <h2>5-Day Forecast</h2>
+          <ul class="weather-cards">
+            <li class="card" ng-repeat="forecast in forecasts">
+              <h2>{{ forecast.date | date: 'mediumDate' }}</h2>
+              <img ng-src="{{ forecast.iconUrl }}" alt="weather icon" />
+              <h4>Temp: {{ forecast.temperature }}°C</h4>
+              <h4>Wind: {{ forecast.windSpeed }} M/S</h4>
+              <h4>Humidity: {{ forecast.humidity }}%</h4>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
